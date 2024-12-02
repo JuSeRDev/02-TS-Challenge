@@ -18,14 +18,29 @@ fetch("./data.json")
 const bars = document.querySelectorAll(".bar") as NodeListOf<HTMLDivElement>
 
 bars.forEach(bar => {
+    const amountElement = bar.previousElementSibling as HTMLDivElement //previousElementSibling agrega el hermano del div que se llama (bar)
+
+    let isClicked: boolean = false
+
     bar.addEventListener("mouseover", ()=>{
-        const amountElement = bar.previousElementSibling as HTMLDivElement //previousElementSibling agrega el hermano del div que se llama (bar)
-        amountElement.classList.toggle("amount-active")
+        if (!isClicked) {
+            amountElement.classList.add("amount-active")
+        }
     })
 
     bar.addEventListener("mouseout", ()=>{
-        const amountElement = bar.previousElementSibling as HTMLDivElement
-        amountElement.classList.toggle("amount-active")
+        if (!isClicked) {
+            amountElement.classList.remove("amount-active")
+        }
+    })
+
+    bar.addEventListener("click", ()=>{
+        isClicked = !isClicked
+        if (isClicked) {
+            amountElement.classList.add("amount-active")
+        }else{
+            amountElement.classList.remove("amount-active")
+        }
     })
 
 });
